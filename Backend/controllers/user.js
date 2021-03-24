@@ -1,27 +1,35 @@
 const User = require('../models/user')
+const mysql = require('mysql');
 
-exports.signup = (req, res, next) => {
-    if (!req.body) {
+exports.create = (req, res, next) => {
+    /*if (!req.body) {
         res.status (400).send({
             message: 'Création de profil impossible'
         });
-    }
-    const user = new User({
-        identifiant: req.body.idUser,
-        email: req.body.email,
-        motDePasse: req.body.mot_de_passe
-    });
+    } else {*/
+        if (sql.query(`SELECT * FROM WHERE idUser = ${ideUser}`)) {
+            const user = new User({
+                identifiant: req.body.idUser,
+                email: req.body.email,
+                mot_de_passe: req.body.mot_de_passe
+            });
 
-    User.create(user, (err, data) => {
-        if (err)
-        res.status(500).json({
-            error
-        });
-        else res.send(data);
-    });
+            User.create(user, (err, data) => {
+                if (err) {
+                res.status(500).json({
+                    error
+                });
+                } else {
+                    res.send(data);
+                }
+            });
+        } else {
+            return res.status (401).json({ error : 'Utilisateur non trouvé !' })
+        }
+    /*}*/
 };
 
-exports.login = (req, res, next) => {
+exports.findOne = (req, res, next) => {
     User.findById(req.params.idUser, (err, data) => {
         if (err) {
             if(err.kind === "non trouvé") {
@@ -33,7 +41,9 @@ exports.login = (req, res, next) => {
                    error
                 });
             }
-        } else res.send(data);
+        } else {
+            res.send(data);
+        }
     });
 };
 

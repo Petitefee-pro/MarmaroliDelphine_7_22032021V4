@@ -1,14 +1,13 @@
-const User = require('../config/db.config');
 const sql = require('./db');
 
-const userSchema = function(user){
+const User = function(user){
     this.identifiant = user.idUser;
     this.pseudo = user.pseudonyme;
     this.email = user.email;
     this.motDePasse = user.mot_de_passe;
 };
 
-User.signup = (newUser, result) => {
+User.create = (newUser, result) => {
     sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
         if (err) {
         console.log("error")
@@ -17,11 +16,10 @@ User.signup = (newUser, result) => {
         }
         console.log("Utilisateur créé: ", { id: res.insertId, ...newUser });
         result(null, { id: res.insertId, ...newUser });
-    });
-    
+    });    
 };
 
-User.login = (idUser, result) => {
+User.findById = (idUser, result) => {
     sql.query(`SELECT * FROM WHERE idUser = ${idUser}`, (err, res) => {
         if (err) {
             console.log('error: ', err);
