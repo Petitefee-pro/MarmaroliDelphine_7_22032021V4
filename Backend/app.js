@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-/*const mysql = require('mysql');*/
+const mysql = require('mysql');
 
 const app = express();
 
@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user');
 /*const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'developper83',
     database: 'groupomania'
 });
 

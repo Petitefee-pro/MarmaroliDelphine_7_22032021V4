@@ -3,13 +3,13 @@ const dbConfig = require('../config/db.config');
 
 //Connexion à la base de données
 const connection = mysql.createConnection({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DB
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
+    database: dbConfig.db
 });
 
-connection.connect(error => {
+connection.connect((error) => {
     if (error) throw error;
     console.log("Connection avec succès à la DB !");
 });
