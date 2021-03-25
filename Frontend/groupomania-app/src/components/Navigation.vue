@@ -1,14 +1,12 @@
 <template>
-  <div class="app">
-    <nav id="nav">
+    <nav class="nav">
         <div>
             <a href="/signup">S'inscrire</a>
             <a href="/login">Se connecter</a>
             <a href="/forum">Forum</a>
         </div>            
         <img src='../assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">
-    </nav>
-  </div>  
+    </nav> 
 </template>
 
 <script>

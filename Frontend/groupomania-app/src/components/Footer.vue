@@ -1,5 +1,5 @@
 <template>
-    <footer id="footer">
+    <footer class="footer">
         <div>
             <a href="#">Politique de confidentialité</a>
             <a href="#">Réglement du forum</a>
@@ -16,23 +16,23 @@ export default {
 </script>
 
 <style lang="scss">
-#footer{    
+.footer{    
     height: 20%;
     width: 100%;
 }
-#footer div{
+.footer div{
     display: flex;
     flex-flow: column wrap;
     height: 5%;
 }
-#footer a{
+.footer a{
     justify-content: space-between;
     align-items: center;
     text-align: center;
     line-height: 30px;
     width: 100%;
 }    
-#footer a:hover{
+.footer a:hover{
     font-weight: bold;
 }
 a{

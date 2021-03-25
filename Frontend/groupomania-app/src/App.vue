@@ -1,20 +1,28 @@
 <template>
   <div>
     <Navigation/>
-    <Main/>
+    <Signup/>
+    <Login/>
+    <Unsubscribe/>
     <Footer/>
   </div>  
 </template>
 
 <script>
 import Navigation from './components/Navigation.vue'
+import Signup from './components/Signup.vue'
+import Login from './components/Login.vue'
 import Footer from './components/Footer.vue'
+import Unsubscribe from './components/Unsubscribe.vue'
 
 export default {
   name: 'App',
   components: {
     Navigation, 
-    Footer
+    Signup,
+    Login,
+    Footer,
+    Unsubscribe
   }
 }
 </script>
