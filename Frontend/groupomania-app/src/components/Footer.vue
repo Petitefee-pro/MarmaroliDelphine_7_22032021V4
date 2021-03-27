@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss" >
 .footer{    
     height: 20%;
     width: 100%;

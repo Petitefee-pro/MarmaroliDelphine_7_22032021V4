@@ -1,4 +1,5 @@
 const sql = require('./db');
+const mysql = require('mysql');
 
 const User = function(user){
     this.identifiant = user.idUser;
@@ -8,7 +9,7 @@ const User = function(user){
 };
 
 User.create = (newUser, result) => {
-    sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
+    sql.query("UPDATE users SET pseudonyme = ?, email = ?, mot_de_passe = ? WHERE idUser = id ?", {...newUser}, (err, res) => {
         if (err) {
         console.log("error")
         result(err, null);

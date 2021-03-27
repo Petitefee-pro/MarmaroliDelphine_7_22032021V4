@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <div>
         <form id="login" @submit="checkForm" action="#" method="post">
             <p>
                 <label for="email"></label> 
@@ -16,21 +16,23 @@
                 Vous n'avez pas encore de compte, <a href="/Signup">inscrivez-vous</a>.
             </p>
         </form>
-    </main>
+    </div>
 </template>
 
 <script>
 export default ({
-    name: 'Login'
+    name: 'login',
+    
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 form{
     display: flex;
     flex-flow: column wrap;
     align-content: center;
     align-items: center;
+    margin: 20% 0 10% 0;
 }
 input{
     border-radius: 20px 20px 20px 20px;

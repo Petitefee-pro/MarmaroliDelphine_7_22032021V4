@@ -1,21 +1,32 @@
 <template>
     <nav class="nav">
         <div>
-            <a href="/signup">S'inscrire</a>
-            <a href="/login">Se connecter</a>
-            <a href="/forum">Forum</a>
-        </div>            
+            <span>
+                <a @click="goSignup">S'inscrire</a>
+                <a @click="goLogin">Se connecter</a>                
+            </span>
+        </div>        
+        <router-view></router-view>    
         <img src='../assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">
     </nav> 
 </template>
 
 <script>
+
 export default {
-  name: 'Navigation'
+  name: 'Navigation', 
+  methods: {
+      goSignup () {
+          this.$router.replace('/signup')
+      },
+      goLogin () {
+          this.$router.replace('/login')
+      },
+  }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .nav{    
     height: 20%;
     width: 100%;
@@ -28,25 +39,25 @@ export default {
     height: 5%;
     padding-bottom: 5%;
 }
-.nav a{
+.nav toolbar{
     justify-content: space-between;
     align-items: flex-end;
     text-align: center;
     line-height: 30px;
     width: 30%;
 }    
-.nav a:hover{
+.nav toolbar:hover{
     font-weight: bold;
     border-bottom: 1px solid white;
 }
 .nav img{
     display: flex;
-    justify-content: center;    
+    justify-content: center; 
     height: 25%;
     width: 90%;
     margin-top: 2%;
 }
-a{
+toolbar{
     color: white;
     text-decoration: none;
 }
