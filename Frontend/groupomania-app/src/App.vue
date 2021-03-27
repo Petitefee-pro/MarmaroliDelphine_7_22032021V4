@@ -1,25 +1,28 @@
 <template>  
-  <div>
-    <div class="nav">
+  <div class="nav">
+    <div class="">
       <router-link to="/">Accueil</router-link>
       <router-link to="/api/user/signup">S'incrire</router-link>
       <router-link to="/api/user/login">Se connecter</router-link> 
     </div>  
-    <router-view/>    
-    <img class="logo" src='@/assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">    
-    <h1>Bienvenue sur le réseau social de l'entreprise</h1>
-    <Footer/>
+    <router-view/>   
+    <div class="">
+      <img class="logo " src='@/assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">    
+    </div>  
+    <div class="">
+      <h1>Bienvenue sur le réseau social de l'entreprise</h1>
+      <Footer/>
+    </div> 
   </div>   
  
 </template>
 
 <script>
 import Footer from '@/components/Footer.vue'
-
 export default {
     name: 'App',
     components: {
-        Footer
+        Footer,        
     }
 }
 

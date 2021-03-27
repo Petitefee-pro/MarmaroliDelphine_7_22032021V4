@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Accueil from '@/views/Accueil.vue';
+import App from '@/App.vue';
 
 const routes = [
         {
             path: "/",
-            name: "Accueil",
-            component: Accueil
+            name: "App",
+            component: App
         },
         {
             path: "/api/user/signup",
