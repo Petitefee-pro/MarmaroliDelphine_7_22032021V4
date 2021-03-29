@@ -1,28 +1,26 @@
 <template>  
-  <div class="nav">
-    <div class="">
+  <div id="app">
+    <div class="nav">
       <router-link to="/">Accueil</router-link>
       <router-link to="/api/user/signup">S'incrire</router-link>
       <router-link to="/api/user/login">Se connecter</router-link> 
     </div>  
-    <router-view/>   
-    <div class="">
-      <img class="logo " src='@/assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">    
-    </div>  
-    <div class="">
-      <h1>Bienvenue sur le réseau social de l'entreprise</h1>
-      <Footer/>
-    </div> 
+      
+    <Header/>
+    <router-view/> 
+    <Footer/>
   </div>   
  
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 export default {
     name: 'App',
     components: {
-        Footer,        
+        Header,
+        Footer     
     }
 }
 
@@ -43,8 +41,9 @@ h1{
 }
 .nav {
   width: 100%;
+  
 }
-router-link {
+.nav router-link {
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -58,6 +57,7 @@ router-link {
     font-weight: bold;
     border-bottom: 1px solid white;
     cursor: pointer;
+    
 }
 .logo{
     display: flex;

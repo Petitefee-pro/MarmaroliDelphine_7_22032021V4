@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div>    
         <form id="signup" @submit="checkForm" action="#" method="post">
             <p>
                 <label for="identifiant"></label> 

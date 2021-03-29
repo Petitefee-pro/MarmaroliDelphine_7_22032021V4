@@ -1,7 +1,7 @@
 <template>
-    <div>        
-        <h1>Bienvenue sur le réseau social de l'entreprise</h1>        
-    </div>  
+    <div class="Accueil">
+      <h1>Bienvenue sur le réseau social de l'entreprise</h1>
+    </div> 
 </template>
 
 <script>
