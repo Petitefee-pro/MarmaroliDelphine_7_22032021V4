@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-      <img class="logo text-center img-fluid p-2 mb-2" src='@/assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">    
-    </div> 
+      <img class="logo d-block mx-auto img-fluid p-2 mb-md-3 mb-lg-5" src='@/assets/images/icon-left-font-monochrome-white-redimensionné.png' alt="logo Groupomania">    
+  </div> 
 </template>
 
 <script>

@@ -5,51 +5,71 @@
                 <label for="email"></label> 
                 <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" v-model="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                 <div class="valid-feedback">Valide</div>
-                <div class="invalid-feedback">Veuillez saisir un email</div>
+                <div class="invalid-feedback">Veuillez saisir votre email</div>
             </div>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                  <label for="password"></label> 
                 <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" required>
                 <div class="valid-feedback">Valide</div>
-                <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères dont au moins 1 lettre mininuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
+                <div class="invalid-feedback">Veuillez saisir votre mot de passe</div>
             </div>
             <div class="form-group col-12 text-center m-2">
-                <input type="button" value="Se connecter" class="btn btn-primary btn-lg mt-3 mb-2">
+                <button type="button" v-on:click="submitFormLogin" class="btn btn-primary btn-lg mt-3 mb-2">Se connecter</button>
             </div>
-            <p class="inscription text-center col-9 mb-5">
-                Vous n'avez pas encore de compte, <a href="/Signup">inscrivez-vous</a>.
+            <p class="inscription text-center col-9 mb-4">
+                Vous n'avez pas encore de compte, <router-link to="/signup">inscrivez-vous</router-link>.
             </p>
         </form>
     </div>
 </template>
 
 <script>
+
 export default ({
     name: 'login',
-    
+    data(){
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods:{
+        submitFormLogin: function (event){
+            let email = this.email;
+            let password = this.password;
+            if((email === "") 
+                && (password === "")
+            ){
+                alert ("Veuillez s'il vous plaît, indiquer votre email et votre mot de passe valide ! ")
+            } else{
+                let login = {
+                    email: email, 
+                    password: password
+                };
+                console.log(login);
+                const envoi = {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body : JSON.stringify({ login }),
+                    mode: 'cors',
+                    cache: 'default'
+                };
+                console.log(envoi);
+                /*fetch("http://localhost:3000/api/user/login", envoi)
+                .then(response = response.json())
+                .then(login => {
+                    console.log('envoi ' + envoi);
+                })
+                .catch(error => alert("Erreur : " + error));*/
+            }
+            event.preventDefault()
+        }
+    }
 })
 </script>
 
 <style scoped lang="scss">
-/*form{
-    display: flex;
-    flex-flow: column wrap;
-    align-content: center;
-    align-items: center;
-    margin: 20% 0 10% 0;
-}
-input{
-    border-radius: 20px 20px 20px 20px;
-    box-shadow: 5px 5px 2px #2F5395;
-    text-align: center;
-    line-height: 30px;
-    font-weight: bold;    
-}
-.inscription{
-    color: white;
-}
-.inscription a:hover{
-    font-weight: bold;
-    text-decoration: white;
-}*/
+
 </style>

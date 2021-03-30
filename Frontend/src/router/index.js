@@ -10,20 +10,41 @@ const routes = [
         component: Accueil
     },
     {
-        path: "/api/user/signup",
+        path: "/signup",
         name: "Signup",
         component: () => import(/*weppackChunkName: "signup"*/ '@/views/Signup.vue')
     },
     {
-        path: "/api/user/login",
+        path: "/login",
         name: "Login",
         component: () => import(/*weppackChunkName: "login"*/ '@/views/Login.vue')
     },
     {
-        path: "/api/user/unsubscribe",
+        path: "/confidential",
+        name: "Confidential",
+        component: () => import(/*weppackChunkName: "confidential"*/ '@/views/Confidential.vue')
+    },
+    {
+        path: "/reglement",
+        name: "Reglement",
+        component: () => import(/*weppackChunkName: "reglement"*/ '@/views/Reglement.vue')
+    },
+    {
+        path: "/unsubscribe",
         name: "Unsubscribe",
         component: () => import(/*weppackChunkName: "unsubscribe"*/ '@/views/Unsubscribe.vue')
     },
+    {
+        path: "/forum",
+        name: "forum",
+        component: () => import(/*weppackChunkName: "forum"*/ '@/views/Forum.vue')
+    },
+    {
+        path: "/commentaire",
+        name: "commentaire",
+        component: () => import(/*weppackChunkName: "commentaire"*/ '@/views/Commentaire.vue')
+    },
+
 ];
 
 const router = createRouter({

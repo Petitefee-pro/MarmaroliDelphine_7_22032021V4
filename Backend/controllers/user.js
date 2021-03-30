@@ -7,9 +7,9 @@ exports.create = (req, res, next) => {
             message: 'Création de profil impossible'
         });
     } else {*/
-        if (sql.query(`SELECT * FROM WHERE idUser = ${ideUser}`)) {
+        if (sql.query(`SELECT * FROM WHERE identifiant = ${identifiant}`)) {
             const user = new User({
-                identifiant: req.body.idUser,
+                identifiant: req.body.identifiant,
                 email: req.body.email,
                 mot_de_passe: req.body.mot_de_passe
             });

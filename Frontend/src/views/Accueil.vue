@@ -1,6 +1,6 @@
 <template>
-    <div class="accueil row text-center m-4">
-      <h1>Bienvenue sur le réseau social de l'entreprise</h1>
+    <div class="accueil d-flex m-4 m-md-5 ">
+      <h1 class="col-md-6 align-items-center flex-column h-ld-75">Bienvenue sur le réseau social de l'entreprise</h1>
     </div> 
 </template>
 

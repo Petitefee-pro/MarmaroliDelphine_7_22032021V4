@@ -6,10 +6,10 @@
           <router-link class="nav-link text-white weight-bold" to="/">Accueil</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-white" to="/api/user/signup">S'incrire</router-link>
+          <router-link class="nav-link text-white" to="/signup">S'incrire</router-link>
         </li>
         <li class="nav-item">
-        <router-link class="nav-link text-white" to="/api/user/login">Se connecter</router-link> 
+        <router-link class="nav-link text-white" to="/login">Se connecter</router-link> 
         </li>
       </ul>  
     </nav>      
