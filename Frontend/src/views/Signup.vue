@@ -1,7 +1,7 @@
 <template>
-    <div class="form-row rounded bg-transparent shadow">    
+    <div class="form-row rounded bg-transparent shadow m-0">    
         <form id="signup" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation pl-4" novalidate>
-            <div class="form-group col-9 col-md-10 m-0">
+            <div class="form-group col-9 col-md-10">
                 <label for="identifiant"></label> 
                 <input type="text" name="identifiant" id="identifiant" class="form-control rounded form-control-lg" placeholder="Identifiant" v-model="identifiant" pattern="[0-9]{4}" required>
                 <div class="valid-feedback">Valide</div>
@@ -21,11 +21,11 @@
             </div>
             <div class="form-group col-9 col-md-10 m-0">
                 <label for="password"></label> 
-                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^[\w$@%*+\-_!]{8,15}$" required>
+                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" required>
                 <div class="valid-feedback">Valide</div>
-                <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères dont au moins 1 lettre mininuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
+                <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères dont au moins, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                 <input type="button" value="S'inscrire" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">
             </div>
         </form>

@@ -1,10 +1,10 @@
 <template>
-    <footer class="footer">
-        <div>
-            <a href="#">Politique de confidentialité</a>
-            <a href="#">Réglement du forum</a>
-            <a href="#">Désinscription</a>
-            <a href="mailto:groupomania@reseau-social.fr">Contact</a>                
+    <footer class="footer row pb-3 m-0">
+        <div class="col-12 d-flex flex-column justify-items-center align-items-center flex-md-row justify-content-md-between">
+            <a class="col-10 col-md-4 text-center text-white" href="#">Politique de confidentialité</a>
+            <a class="col-10 col-md-3 text-center text-white" href="#">Réglement du forum</a>
+            <a class="col-10 col-md-3 text-center text-white" href="#">Désinscription</a>
+            <a class="col-10 col-md-2 text-center text-white" href="mailto:groupomania@reseau-social.fr">Contact</a>                
         </div>
     </footer>
 </template>
@@ -16,27 +16,5 @@ export default {
 </script>
 
 <style scoped lang="scss" >
-.footer{    
-    height: 20%;
-    width: 100%;
-}
-.footer div{
-    display: flex;
-    flex-flow: column wrap;
-    height: 5%;
-}
-.footer a{
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    line-height: 30px;
-    width: 100%;
-}    
-.footer a:hover{
-    font-weight: bold;
-}
-a{
-    color: white;
-    text-decoration: none;
-}
+
 </style>

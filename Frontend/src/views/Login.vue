@@ -9,7 +9,7 @@
             </div>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                  <label for="password"></label> 
-                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^[\w$@%*+\-_!]{8,15}$" required>
+                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" required>
                 <div class="valid-feedback">Valide</div>
                 <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères dont au moins 1 lettre mininuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
             </div>
