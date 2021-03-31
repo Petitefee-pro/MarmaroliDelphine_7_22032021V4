@@ -1,15 +1,14 @@
-const sql = require('./db');
-const mysql = require('mysql');
+const sql = require('../models/db');
 
 const User = function(user){
-    this.identifiant = user.idUser;
-    this.pseudo = user.pseudonyme, require;
-    this.email = user.email, require;
-    this.password = user.password, require;
+    this.identifiant = user.idUser,
+    this.pseudo = user.pseudonyme,
+    this.email = user.email,
+    this.password = user.password
 };
 
 User.signup = (newUser, result) => {
-    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = identifiant ?", { ...newUser }, (err, res) => {
+    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${this.identifiant} ?", { ...newUser }, (err, res) => {
         if (err) {
         console.log("error")
         result(err, null);

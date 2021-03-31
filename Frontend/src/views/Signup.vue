@@ -1,6 +1,6 @@
 <template>
     <div class="form-row rounded bg-transparent shadow m-0 pb-0">    
-        <form id="signup" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation" novalidate>
+        <form id="signup" @submit.prevent="submitFormSignup" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-10 col-md-10 m-0 p-0">
                 <label for="identifiant"></label> 
                 <input type="text" name="identifiant" id="identifiant" class="form-control form-control-lg" placeholder="Identifiant" v-model="identifiant" pattern="[0-9]{4}" required>
@@ -26,7 +26,7 @@
                 <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères avec au moins, 1 lettre minuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
             </div>
             <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
-                <button type="button" v-on:click="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
+                <button type="submit" :click="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
             </div>
         </form>
     </div>
@@ -45,7 +45,7 @@ export default ({
         }
     },
     methods:{
-        submitFormSignup: function (event){
+        submitFormSignup: function (){
             let identifiant = this.identifiant;
             let regexIdentifiant = /[0-9]{4}/g;
             let pseudo = this.pseudo;
@@ -71,7 +71,7 @@ export default ({
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ profil }),
+                    body: JSON.stringify( profil ),
                     mode: 'cors',
                     cache: 'default'
                 };
@@ -84,7 +84,6 @@ export default ({
             } else{
                 alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
-            event.preventDefault()
         }
         
     },

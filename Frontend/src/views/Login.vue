@@ -1,6 +1,6 @@
 <template>
     <div class="login form-row rounded bg-transparent shadow justify-content-center">
-        <form id="login" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation" novalidate>
+        <form id="login" @submit="submitFormLogin" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                 <label for="email"></label> 
                 <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" v-model="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
@@ -14,7 +14,7 @@
                 <div class="invalid-feedback">Veuillez saisir votre mot de passe</div>
             </div>
             <div class="form-group col-12 text-center m-2">
-                <button type="button" v-on:click="submitFormLogin" class="btn btn-primary btn-lg mt-3 mb-2">Se connecter</button>
+                <button type="submit" :click="submitFormLogin" class="btn btn-primary btn-lg mt-3 mb-2">Se connecter</button>
             </div>
             <p class="inscription text-center col-9 mb-4">
                 Vous n'avez pas encore de compte, <router-link to="/signup">inscrivez-vous</router-link>.
@@ -34,7 +34,7 @@ export default ({
         }
     },
     methods:{
-        submitFormLogin: function (event){
+        submitFormLogin: function (){
             let email = this.email;
             let password = this.password;
             if((email === "") 
@@ -64,7 +64,6 @@ export default ({
                 })
                 .catch(error => alert("Erreur : " + error));*/
             }
-            event.preventDefault()
         }
     }
 })

@@ -1,16 +1,17 @@
 const User = require('../models/user');
-const mysql = require('mysql');
+const sql = require('../models/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 //Création du profil utilisateur
 exports.signup = (req, res, next) => {
+    console.log(req.body)
     if (!req.body) {
         res.status (400).send({
             message: 'Création de profil impossible'
         });
     } else {
-        if (sql.query(`SELECT * FROM WHERE identifiant = ${identifiant}`)) {
+        if (sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)) {
             bcrypt.hash(req.body.password, 10)
                 .then(hash => {
                     const user = new User({
@@ -47,7 +48,7 @@ exports.login = (req, res, next) => {
             }
             user.compare(req.body.password, user.password)
         })
-    /*User.login(req.params.idUser, (err, data) => {
+    User.login(req.params.idUser, (err, data) => {
         if (err) {
             if(err.kind === "non trouvé") {
                 res.status(404).send({
@@ -61,7 +62,7 @@ exports.login = (req, res, next) => {
         } else {
             res.send(data);
         }
-    });*/
+    });
 };
 
 /*const User = require('../models/user');
@@ -105,5 +106,3 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };*/
-
-module.exports = User;

@@ -1,6 +1,6 @@
 <template>
     <div class="unsubscrive form-row rounded bg-transparent shadow justify-content-center">    
-        <form id="unsubscribe" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation" novalidate>
+        <form id="unsubscribe" @submit="submitFormUnsubscribe" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 m-0">
                 <label for="identifiant"></label> 
                 <input type="text" name="identifiant" id="identifiant" class="form-control form-control-lg" placeholder="Identifiant" v-model="identifiant" pattern="[0-9]{4}" required>
@@ -20,7 +20,7 @@
                 <div class="invalid-feedback">Veuillez saisir votre mot de passe</div>
             </div>
             <div class="form-group col-8 col-md-8 col-lg-9 col-xl-11 mb-4 text-center">
-                <button type="button" v-on:click="submitFormUnsubscribe" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Se désinscrire</button>
+                <button type="submit" :click="submitFormUnsubscribe" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Se désinscrire</button>
             </div>
         </form>
     </div>
@@ -38,7 +38,7 @@ export default ({
         }
     },
     methods:{
-        submitFormUnsubscribe: function (event){
+        submitFormUnsubscribe: function (){
             let identifiant = this.identifiant;
             let email = this.email;
             let password = this.password;
@@ -71,7 +71,6 @@ export default ({
                 })
                 .catch(error => alert("Erreur : " + error));*/
             }
-            event.preventDefault()
         }
     }
 })
