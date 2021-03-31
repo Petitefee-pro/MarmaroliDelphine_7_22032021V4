@@ -1,7 +1,8 @@
-const User = require('../models/user');
 const sql = require('../models/db');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 
 //Création du profil utilisateur
 exports.signup = (req, res, next) => {
@@ -11,28 +12,23 @@ exports.signup = (req, res, next) => {
             message: 'Création de profil impossible'
         });
     } else {
-        if (sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)) {
+        if (sql.query(`SELECT * FROM users  WHERE identifiant = ${req.body.identifiant}`)) {
             bcrypt.hash(req.body.password, 10)
                 .then(hash => {
+                    console.log("ok");
                     const user = new User({
-                    identifiant: req.body.identifiant,
-                    email: req.body.email,
-                    password: hash
+                        identifiant: req.body.identifiant,
+                        pseudo: req.body.pseudo,
+                        email: req.body.email,
+                        password: hash
                     });
-                    User.signup()
+                    console.log(user);
+                    console.log(User);
+;                   user.signup()
                         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
                         .catch(error => res.status(400).json({ error}));
                 })
-                .catch(error => console.log(error)/*res.status(500).json({ error }) */);
-            /*User.signup(user, (err, data) => {
-                if (err) {
-                res.status(500).json({
-                    error
-                });
-                } else {
-                    res.send(data);                    
-                }
-            });console.log(user)*/
+                .catch(error => res.status(500).json({ error }) );
         } else {
             return res.status (401).json({ error : 'Utilisateur non trouvé !' })
         }
