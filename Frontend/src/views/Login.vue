@@ -1,5 +1,5 @@
 <template>
-    <div class="form-row rounded bg-transparent shadow justify-content-center">
+    <div class="login form-row rounded bg-transparent shadow justify-content-center">
         <form id="login" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                 <label for="email"></label> 
@@ -71,5 +71,9 @@ export default ({
 </script>
 
 <style scoped lang="scss">
-
+@media screen and (min-width: 768px) and (max-width: 2500px) {
+    .login{
+        height: 600px;        
+    }
+}
 </style>

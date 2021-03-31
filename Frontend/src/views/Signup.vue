@@ -23,7 +23,7 @@
                 <label for="password"></label> 
                 <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Mot de passe" v-model="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" required>
                 <div class="valid-feedback">Valide</div>
-                <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères dont au moins,1 lettre minuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
+                <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères avec au moins, 1 lettre minuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
             </div>
             <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                 <button type="button" v-on:click="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>

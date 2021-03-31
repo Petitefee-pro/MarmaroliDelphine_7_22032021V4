@@ -3,13 +3,13 @@ const mysql = require('mysql');
 
 const User = function(user){
     this.identifiant = user.idUser;
-    this.pseudo = user.pseudonyme;
-    this.email = user.email;
-    this.motDePasse = user.mot_de_passe;
+    this.pseudo = user.pseudonyme, require;
+    this.email = user.email, require;
+    this.password = user.password, require;
 };
 
-User.create = (newUser, result) => {
-    sql.query("UPDATE users SET pseudonyme = ?, email = ?, mot_de_passe = ? WHERE idUser = id ?", {...newUser}, (err, res) => {
+User.signup = (newUser, result) => {
+    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = identifiant ?", { ...newUser }, (err, res) => {
         if (err) {
         console.log("error")
         result(err, null);
@@ -20,7 +20,7 @@ User.create = (newUser, result) => {
     });    
 };
 
-User.findById = (idUser, result) => {
+User.login = (idUser, result) => {
     sql.query(`SELECT * FROM WHERE idUser = ${idUser}`, (err, res) => {
         if (err) {
             console.log('error: ', err);

@@ -1,5 +1,5 @@
 <template>
-    <div class="form-row rounded bg-transparent shadow justify-content-center">    
+    <div class="unsubscrive form-row rounded bg-transparent shadow justify-content-center">    
         <form id="unsubscribe" @submit="checkForm" action="#" method="POST" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 m-0">
                 <label for="identifiant"></label> 
@@ -78,5 +78,10 @@ export default ({
 </script>
 
 <style scoped lang="scss">
+@media screen and (min-width: 768px) and (max-width: 2500px) {
+    .unsubscrive{
+        height: 600px;        
+    }
+}
 
 </style>

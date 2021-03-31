@@ -1,36 +1,53 @@
-const User = require('../models/user')
+const User = require('../models/user');
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.create = (req, res, next) => {
-    /*if (!req.body) {
+//Création du profil utilisateur
+exports.signup = (req, res, next) => {
+    if (!req.body) {
         res.status (400).send({
             message: 'Création de profil impossible'
         });
-    } else {*/
+    } else {
         if (sql.query(`SELECT * FROM WHERE identifiant = ${identifiant}`)) {
-            const user = new User({
-                identifiant: req.body.identifiant,
-                email: req.body.email,
-                mot_de_passe: req.body.mot_de_passe
-            });
-
-            User.create(user, (err, data) => {
+            bcrypt.hash(req.body.password, 10)
+                .then(hash => {
+                    const user = new User({
+                    identifiant: req.body.identifiant,
+                    email: req.body.email,
+                    password: hash
+                    });
+                    User.signup()
+                        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+                        .catch(error => res.status(400).json({ error}));
+                })
+                .catch(error => console.log(error)/*res.status(500).json({ error }) */);
+            /*User.signup(user, (err, data) => {
                 if (err) {
                 res.status(500).json({
                     error
                 });
                 } else {
-                    res.send(data);
+                    res.send(data);                    
                 }
-            });
+            });console.log(user)*/
         } else {
             return res.status (401).json({ error : 'Utilisateur non trouvé !' })
         }
-    /*}*/
+    }
 };
 
-exports.findOne = (req, res, next) => {
-    User.findById(req.params.idUser, (err, data) => {
+//Connection au profil utilisateur
+exports.login = (req, res, next) => {
+    User.findOne({ email: req.body.email })
+        .then((user) => {
+            if(!user) {
+                return res.status(401).json({ error : 'Utilisateur non trouvé !' });
+            }
+            user.compare(req.body.password, user.password)
+        })
+    /*User.login(req.params.idUser, (err, data) => {
         if (err) {
             if(err.kind === "non trouvé") {
                 res.status(404).send({
@@ -44,7 +61,7 @@ exports.findOne = (req, res, next) => {
         } else {
             res.send(data);
         }
-    });
+    });*/
 };
 
 /*const User = require('../models/user');
@@ -87,6 +104,6 @@ exports.login = (req, res, next) => {
     };
     })
     .catch((error) => res.status(500).json({ error }));
-};
+};*/
 
-module.exports = User;*/
+module.exports = User;
