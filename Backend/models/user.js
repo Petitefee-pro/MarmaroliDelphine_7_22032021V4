@@ -1,28 +1,35 @@
 const sql = require('../models/db');
 
- const User = class {
-    constructor(identifiant, pseudonyme, email, password){
-    this.identifiant = user.identifiant
-    this.pseudonyme = user.pseudonyme
-    this.email = user.email
+ const User = function(user){
+    this.identifiant = user.identifiant,
+    this.pseudo= user.pseudo,
+    this.email = user.email,
     this.password = user.password
 };
 
 
-signup(){
-    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${this.identifiant} ?", { ...this }, (err, res) => {
-        if (err) {
-        console.log("error")
-        result(err, null);
-        return;
+User.updateById = (identifiant, user, result) => {
+    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${req.body.identifiant}", 
+    [user.pseudo, user.email, user.password, identifiant],
+    (err, res) => {
+        if (err){
+            console.log("error: ", err);
+            result(err, null);
+            return;
         }
-        console.log("Utilisateur créé: ", { id: res.insertId, ...this });
-        result(null, { id: res.insertId, ...this });
-    });    
+        if(res.affectedRows == 0){
+            result({ kind: 'Utilisateur non trouvé !' }, null);
+            return;
+        }
+        console.log('création profil : ', { id: identifiant, ...User })
+        result(null, { identifiant: identifiant, ...user});
+    });
 };
+    
 
-login(idUser){
-    sql.query(`SELECT * FROM WHERE idUser = ${idUser}`, (err, res) => {
+
+User.findById = (idUser, result) => {
+    sql.query(`SELECT * FROM users WHERE identifiant = identifiant`, (err, res) => {
         if (err) {
             console.log('error: ', err);
             result(err, null);
@@ -36,5 +43,5 @@ login(idUser){
         result({ kind: 'Utilisateur non trouvé !' }, null);
     });
 };
-}
+
 module.exports = User;

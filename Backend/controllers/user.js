@@ -6,13 +6,70 @@ const jwt = require('jsonwebtoken');
 
 //Création du profil utilisateur
 exports.signup = (req, res, next) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Le contenu ne peut pas être vide!"
+        });
+    } else {
+        if (sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)) {
+            console.log("if");
+            bcrypt.hash(req.body.password, 10)
+                .then(hash => {
+                    console.log("ok");
+                    user.updateById(
+                        req.params.identifiant,
+                        new User({
+                            pseudo: req.body.pseudo,
+                            email: req.body.email,
+                            password: hash
+                        }),
+                        (err, data) => {
+                            if (err) {
+                                if (err.kind === "non trouvé") {
+                                    res.status(404).send({
+                                        message: `Utilisateur non trouvé avec identifiant ${req.params.identifiant}.`
+                                    });
+                                } else {
+                                    res.status(500).send({
+                                        message: "Erreur lors de la mise à jour du client avec l'identifiant " + req.params.identifiant
+                                    });
+                                }
+                            } else {
+                                res.send(data);
+                            }
+                        }
+                    )
+                })
+                .catch(error => res.status(500).json({ message: 'error 500' }) );
+        } else {
+            return res.status (401).json({ error : 'Utilisateur non trouvé !' })
+        }
+    }    
+};
+//Connection au profil utilisateur
+exports.login = (req, res, next) => {
+    User.findById(this.identifiant, (err, data) => {
+        if (err) {
+          if (err.kind === "non trouvé") {
+            res.status(404).send({
+              message: `Utilisateur non trouvé avec identifiant ${this.identifiant}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Erreur lors de la récupération de l'utilisateur avec l'ID" + this.identifiant
+            });
+          }
+        } else res.send(data);
+      });
+};
+/*exports.signup = (req, res, next) => {
     console.log(req.body)
     if (!req.body) {
         res.status (400).send({
             message: 'Création de profil impossible'
         });
     } else {
-        if (sql.query(`SELECT * FROM users  WHERE identifiant = ${req.body.identifiant}`)) {
+        if (sql.query(`SELECT * FROM users WHERE identifiant = identifiant`)) {
             bcrypt.hash(req.body.password, 10)
                 .then(hash => {
                     console.log("ok");
@@ -22,11 +79,10 @@ exports.signup = (req, res, next) => {
                         email: req.body.email,
                         password: hash
                     });
+                    user.updateById()
+                        .then(() => res.status(201).json({message: 'Utilisateur créé !'}))
+                        .catch((error) => res.status(400).json({ error }));
                     console.log(user);
-                    console.log(User);
-;                   user.signup()
-                        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-                        .catch(error => res.status(400).json({ error}));
                 })
                 .catch(error => res.status(500).json({ error }) );
         } else {
@@ -44,7 +100,7 @@ exports.login = (req, res, next) => {
             }
             user.compare(req.body.password, user.password)
         })
-    User.login(req.params.idUser, (err, data) => {
+        User.login(req.params.idUser, (err, data) => {
         if (err) {
             if(err.kind === "non trouvé") {
                 res.status(404).send({
