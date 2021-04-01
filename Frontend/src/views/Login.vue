@@ -57,12 +57,13 @@ export default ({
                     cache: 'default'
                 };
                 console.log(envoi);
-                /*fetch("http://localhost:3000/api/user/login", envoi)
-                .then(response = response.json())
-                .then(login => {
-                    console.log('envoi ' + envoi);
+                fetch("http://localhost:3000/api/user/login", envoi)
+                .then(response => response.json())
+                .then((login) => {
+                    console.log('envoi ' + login);
+                    this.$router.push({ name: 'Forum' })
                 })
-                .catch(error => alert("Erreur : " + error));*/
+                .catch(error => alert("Erreur : " + error));
             }
         }
     }

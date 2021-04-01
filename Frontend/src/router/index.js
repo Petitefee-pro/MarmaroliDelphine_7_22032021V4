@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory,  } from "vue-router";
 import Accueil from '@/views/Accueil.vue';
 
+
 const routerHistory = createWebHashHistory();
  
 const routes = [
@@ -36,12 +37,12 @@ const routes = [
     },
     {
         path: "/forum",
-        name: "forum",
+        name: "Forum",
         component: () => import(/*weppackChunkName: "forum"*/ '@/views/Forum.vue')
     },
     {
         path: "/commentaire",
-        name: "commentaire",
+        name: "Commentaire",
         component: () => import(/*weppackChunkName: "commentaire"*/ '@/views/Commentaire.vue')
     },
 

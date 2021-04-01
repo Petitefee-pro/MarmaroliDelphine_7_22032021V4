@@ -9,7 +9,7 @@ const User = function(user){
 
 User.updateById = (identifiant, user, result) => {
     sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${req.body.identifiant}`, 
-    [user.pseudo, user.email, user.password, identifiant],
+    [user.pseudo, user.email, user.password, user.identifiant],
     (err, res) => {
         if (err){
             console.log("error: ", err);
@@ -25,7 +25,7 @@ User.updateById = (identifiant, user, result) => {
     });
 };
 
-User.findById = (idUser, result) => {
+User.findById = (identifiant, result) => {
     sql.query(`SELECT * FROM users WHERE identifiant = identifiant`, (err, res) => {
         if (err) {
             console.log('error: ', err);

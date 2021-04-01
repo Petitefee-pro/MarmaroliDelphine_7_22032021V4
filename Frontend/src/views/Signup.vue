@@ -28,6 +28,7 @@
             <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                 <button type="submit" :click="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
             </div>
+            
         </form>
     </div>
 </template>
@@ -80,6 +81,7 @@ export default ({
                 fetch("http://localhost:3000/api/user/signup", envoi)
                 .then(response => response.json())
                 .then(profil => {
+                    this.$router.push({ name: 'Forum' })
                     console.log ('envoi ' + profil);
                 })
                 .catch(error => alert("Erreur : " + error));

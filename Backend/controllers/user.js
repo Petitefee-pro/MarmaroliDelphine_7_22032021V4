@@ -17,7 +17,8 @@ exports.signup = (req, res, next) => {
             bcrypt.hash(req.body.password, 10)
                 .then(hash => {
                     console.log("ok");
-                    user.updateById(
+                    console.log(user);
+                    user.updateById(                        
                         req.params.identifiant,
                         new User({
                             pseudo: req.body.pseudo,
@@ -40,12 +41,13 @@ exports.signup = (req, res, next) => {
                             }
                         }
                     )
+                    
                 })
                 .catch(error => res.status(500).json({ message: 'error 500' }) );
         } else {
             return res.status (401).json({ error : 'Utilisateur non trouvé !' })
         }
-    }    
+    }
 };
 //Connection au profil utilisateur
 exports.login = (req, res, next) => {
