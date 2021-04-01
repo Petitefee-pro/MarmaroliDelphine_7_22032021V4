@@ -1,15 +1,14 @@
 const sql = require('../models/db');
 
- const User = function(user){
+const User = function(user){
     this.identifiant = user.identifiant,
     this.pseudo= user.pseudo,
     this.email = user.email,
     this.password = user.password
 };
 
-
 User.updateById = (identifiant, user, result) => {
-    sql.query("UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${req.body.identifiant}", 
+    sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${req.body.identifiant}`, 
     [user.pseudo, user.email, user.password, identifiant],
     (err, res) => {
         if (err){
@@ -25,8 +24,6 @@ User.updateById = (identifiant, user, result) => {
         result(null, { identifiant: identifiant, ...user});
     });
 };
-    
-
 
 User.findById = (idUser, result) => {
     sql.query(`SELECT * FROM users WHERE identifiant = identifiant`, (err, res) => {

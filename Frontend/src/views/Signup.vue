@@ -75,6 +75,8 @@ export default ({
                     mode: 'cors',
                     cache: 'default'
                 };
+                console.log(envoi);
+                console.log(JSON.stringify(profil));
                 fetch("http://localhost:3000/api/user/signup", envoi)
                 .then(response => response.json())
                 .then(profil => {

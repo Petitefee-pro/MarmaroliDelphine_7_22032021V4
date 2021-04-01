@@ -11,6 +11,7 @@ exports.signup = (req, res, next) => {
             message: "Le contenu ne peut pas être vide!"
         });
     } else {
+        console.log(req.body);
         if (sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)) {
             console.log("if");
             bcrypt.hash(req.body.password, 10)
@@ -48,7 +49,7 @@ exports.signup = (req, res, next) => {
 };
 //Connection au profil utilisateur
 exports.login = (req, res, next) => {
-    User.findById(this.identifiant, (err, data) => {
+    User.findById(this.identifiant, (err, data) => {        
         if (err) {
           if (err.kind === "non trouvé") {
             res.status(404).send({

@@ -5,7 +5,8 @@ const mysql = require('mysql');
 const app = express();
 
 const userRoutes = require('./routes/user');
-/*const forumRoutes = require('./routes/forum');*/
+const forumRoutes = require('./routes/forum');
+const commentaireRoutes = require('./routes/commentaire');
 
 /*const db = mysql.createConnection({
     host: 'localhost',
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/user', userRoutes);
-/*app.use('/api/forum', forumRoutes);*/
+app.use('/api/forum', forumRoutes);
+app.use('/api/commentaire', commentaireRoutes);
 
 module.exports = app;
