@@ -10,11 +10,11 @@ exports.createForum = (req, res) => {
     } else{
     
       //Création d'un forum
+      const forumObject = JSON.parse(req.body.forum);
+      delete forumObject.id;
       const forum = new Forum({
-        contenuText: req.body.contenuText,
-        contenuImage: req.body.contenuImage,
-        contenuDate: req.body.contenuDate,
-        /*pseudo: req.body.pseudo*/
+        ...forumObject,
+        contenuImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       });
     
       //Sauvegarde d'un forum dans la base de données
@@ -34,12 +34,17 @@ exports.modifyForum = (req, res) => {
         res.status(400).send({
           message: "Le contenu ne peut pas être vide!"
         });
-      }
+    } else{
     
       //Modification d'un forum
+      const forumObject = req.file ?
+        {
+          ...JSON.parse(req.body.forum),
+          contenuImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        } : { ...req.body }
       Forum.updateById(
         req.params.idforum,
-        new Forum(req.body),
+        new Forum(forumObject),
         (err, data) => {
           if (err) {
             if (err.kind === "non trouvé") {
@@ -54,6 +59,7 @@ exports.modifyForum = (req, res) => {
           } else res.send(data);
         }
       );    
+    }
 };
 
 exports.deleteForum = (req, res) => {

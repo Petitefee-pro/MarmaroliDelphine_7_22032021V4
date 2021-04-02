@@ -9,6 +9,16 @@
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback">Veuillez saisir un post</div>
                 </div>
+                <div class="form-group col-10 col-md-10 m-0 p-0">
+                    <div>
+                        <label for="image"></label>
+                        <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" multiple>
+                    </div>                
+                    <div class="preview">
+                        <p>Aucune image chargée</p>
+                    </div>
+                    <button>Envoyer</button>
+                </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                     <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
                 </div>            
@@ -28,6 +38,7 @@ export default {
         }
     },
     methods:{
+        
         submitFormForum: function (){
             let pseudo = this.pseudo;
             let post = this.post;
