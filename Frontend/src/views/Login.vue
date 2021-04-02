@@ -60,8 +60,8 @@ export default ({
                 fetch("http://localhost:3000/api/user/login", envoi)
                 .then(response => response.json())
                 .then((login) => {
-                    console.log('envoi ' + login);
                     this.$router.push({ name: 'Forum' })
+                    console.log('envoi ' + login);                    
                 })
                 .catch(error => alert("Erreur : " + error));
             }

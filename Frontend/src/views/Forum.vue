@@ -1,12 +1,65 @@
 <template>
-    <h1 class="text-center text-white">Forum</h1>
+   <div class="form-row rounded bg-transparent shadow flex-column justify-content-center m-0 pb-0">  
+       <h1 class="text-center text-white">Forum</h1>
+        <div>
+            <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
+                <div class="form-group col-10 col-md-10 m-0 p-0">
+                    <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
+                    <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
+                    <div class="valid-feedback">Valide</div>
+                    <div class="invalid-feedback">Veuillez saisir un post</div>
+                </div>
+                <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
+                    <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
+                </div>            
+            </form>
+        </div>
+        <span id="forum"></span>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'forum',
-    /*methods:{
-        fetch('http://localhost:3000/api/forum')
+    data(){
+        return {
+            pseudo:'',
+            post: ''
+        }
+    },
+    methods:{
+        submitFormForum: function (){
+            let pseudo = this.pseudo;
+            let post = this.post;
+            let regexPost = /[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
+            if((regexPost.test(post) === true)
+            ){
+                let message = {
+                    pseudo: pseudo,
+                    post: post
+                }
+                console.log(message);
+                const envoi = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( message ),
+                    mode: 'cors',
+                    cache: 'default'
+                }
+            console.log(envoi);
+            fetch("http://localhost:3000/api/forum/", envoi)
+            .then(response => response.json())
+            .then(message => {
+                console.log ('envoi ' + message);
+                })
+            .catch(error => alert("Erreur : " + error));
+            } else{
+                alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
+            }
+        }
+        /*fetch('http://localhost:3000/api/forum')
         .then(response => response.json())
         .then(posts => {
             main = document.getElementById('app');
@@ -58,8 +111,8 @@ export default {
                 }
             }            
         })
-        .catch(error => alert("Erreur : " + error))
-    }*/
+        .catch(error => alert("Erreur : " + error))*/
+    }
 }
 </script>
 
