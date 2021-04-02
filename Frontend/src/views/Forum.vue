@@ -7,17 +7,11 @@
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
                     <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
-                    <div class="invalid-feedback">Veuillez saisir un post</div>
+                    <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-10 col-md-10 m-0 p-0">
-                    <div>
                         <label for="image"></label>
-                        <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png" multiple>
-                    </div>                
-                    <div class="preview">
-                        <p>Aucune image chargée</p>
-                    </div>
-                    <button>Envoyer</button>
+                        <input class="" type="file" id="image" name="image" accept=".jpg, .jpeg, .png" multiple>                             
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                     <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
@@ -70,7 +64,7 @@ export default {
                 alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
         },
-        /*fetch("http://localhost:3000/api/forum/")
+        fetch("http://localhost:3000/api/forum/")
         .then(response => response.json())
         .then(posts => {
             fil = document.getElementById('posts');
@@ -122,7 +116,7 @@ export default {
                 }
             }            
         })
-        .catch(error => alert("Erreur : " + error))*/
+        .catch(error => alert("Erreur : " + error))
     }
 }
 </script>

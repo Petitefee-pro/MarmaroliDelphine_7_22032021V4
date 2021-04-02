@@ -7,9 +7,10 @@ const User = function(user){
     this.password = user.password
 };
 
-User.updateById = (identifiant, user, result) => {
-    sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ${req.body.identifiant}`, 
-    [user.pseudo, user.email, user.password, user.identifiant],
+User.updateById = (req, res) => {
+    console.log(identifiant,user)
+    sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ?`, 
+    req.body.pseudo, req.body.email, req.body.password, req.body.identifiant,
     (err, res) => {
         if (err){
             console.log("error: ", err);
@@ -25,7 +26,7 @@ User.updateById = (identifiant, user, result) => {
     });
 };
 
-User.findOne = (email, result) => {
+User.findOne = (req, res) => {
     sql.query(`SELECT * FROM users WHERE email = email`, (err, res) => {
         if (err) {
             console.log('error: ', err);

@@ -5,16 +5,29 @@ const jwt = require('jsonwebtoken');
 
 //Création du profil utilisateur
 exports.signup = (req, res) => {
-    if(sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)){
+    console.log(req.body);
+    if(sql.query(`SELECT * FROM users WHERE identifiant = ?`, req.body.identifiant, function(error, _result, _fields){
+        if (error){
+            console.log(error);
+        }
+    })){
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 const user = new User({
+                    identifiant: req.body.identifiant,
+                    pseudo: req.body.pseudo,
                     email: req.body.email,
                     password: hash
                 });
+                console.log(user);
                 user.updateById()
-                    .then(() => res.status(201).json({ message: 'Utilisateur créé !'}))
-                    .catch(error => res.status(400).json({ error }));
+                    .then(() => {
+                    console.log('ok');
+                    res.status(201).json({ message: 'Utilisateur créé !'})})
+                    
+                    .catch(error => { 
+                        console.log('catch');
+                        res.status(400).json({ error })});
             })
             .catch(error => res.status(500).json({ error }));
     } else {
