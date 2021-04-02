@@ -7,7 +7,7 @@ exports.createForum = (req, res) => {
         res.status(400).send({
           message: "Le contenu ne peut pas être vide!"
         });
-      }
+    } else{
     
       //Création d'un forum
       const forum = new Forum({
@@ -26,6 +26,7 @@ exports.createForum = (req, res) => {
           });
         else res.send(data);
       });
+    }
 };
 
 exports.modifyForum = (req, res) => {

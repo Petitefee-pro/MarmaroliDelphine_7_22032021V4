@@ -14,8 +14,7 @@ Forum.create = (newForum, result) => {
         console.log("error: ", err);
         result(err, null);
         return;
-      }
-  
+      }  
       console.log("créé un nouveau forum: ", { id: res.insertId, ...newForum });
       result(null, { id: res.insertId, ...newForum });
     });

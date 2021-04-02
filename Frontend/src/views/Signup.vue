@@ -27,8 +27,7 @@
             </div>
             <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                 <button type="submit" :click="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
-            </div>
-            
+            </div>            
         </form>
     </div>
 </template>
@@ -47,6 +46,8 @@ export default ({
     },
     methods:{
         submitFormSignup: function (){
+
+            //Vérification par regex du formulaire d'inscription
             let identifiant = this.identifiant;
             let regexIdentifiant = /[0-9]{4}/g;
             let pseudo = this.pseudo;
@@ -67,6 +68,8 @@ export default ({
                     password: password
                 };
                 console.log(profil);
+
+                //Envoi du formulaire d'inscription
                 const envoi = {
                     method: 'POST',
                     headers: {

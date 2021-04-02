@@ -1,12 +1,26 @@
 const sql = require('../models/db');
-const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-
 //Création du profil utilisateur
-exports.signup = (req, res, next) => {
-    if (!req.body) {
+exports.signup = (req, res) => {
+    if(sql.query(`SELECT * FROM users WHERE identifiant = ${req.body.identifiant}`)){
+        bcrypt.hash(req.body.password, 10)
+            .then(hash => {
+                const user = new User({
+                    email: req.body.email,
+                    password: hash
+                });
+                user.updateById()
+                    .then(() => res.status(201).json({ message: 'Utilisateur créé !'}))
+                    .catch(error => res.status(400).json({ error }));
+            })
+            .catch(error => res.status(500).json({ error }));
+    } else {
+        return res.status (401).json({ error : 'Utilisateur non trouvé !' })
+    }
+    /*if (!req.body) {
         res.status(400).send({
             message: "Le contenu ne peut pas être vide!"
         });
@@ -47,15 +61,15 @@ exports.signup = (req, res, next) => {
         } else {
             return res.status (401).json({ error : 'Utilisateur non trouvé !' })
         }
-    }
+    }*/
 };
 //Connection au profil utilisateur
-exports.login = (req, res, next) => {
-    User.findById(this.identifiant, (err, data) => {        
+exports.login = (req, res) => {
+    /*User.findById(this.email, (err, data) => {        
         if (err) {
           if (err.kind === "non trouvé") {
             res.status(404).send({
-              message: `Utilisateur non trouvé avec identifiant ${this.identifiant}.`
+              message: `Utilisateur non trouvé avec l'email ${this.email}.`
             });
           } else {
             res.status(500).send({
@@ -63,7 +77,29 @@ exports.login = (req, res, next) => {
             });
           }
         } else res.send(data);
-      });
+      });*/
+      User.findOne({ email: req.body.email })
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({ error: "Utilisateur non trouvé !" });
+            }
+            bcrypt.compare(req.body.password, user.password)
+                .then(valid => {
+                    if (!valid) {
+                        returnres.status(401).json({ error: 'Mot de passe incorrect !' });
+                    }
+                    res.status(200).json({
+                        idUser: user.id,
+                        token: jwt.sign(
+                            { idUser: user.id },
+                            '!UL+Z]wnKk-?v=Y8u5w.}M),D:m]}bqx+t724GQ[k@FR:m#])KvPS!?3vEb6JVSDTk/Yb+gu!-?hxB7cy%kHuy:_QqG+NF8FRv[QzuVE7$/?N;dBSthJ-z{B$hk?=SXmu!=6auH=dY[[{muwAec2N@FJERA:T8za)QF+@)e92Y)/X9f-FZ7Wx4yQyR5V[y%TPJD2.UedkG?7XZW}Qh.ruT.Z)f3Bc=jUETuvn_!HAM:E.TVWB#B4C9*g?7Q*:*Dg(f/V4Yq]puLBFN=&7/TcANT#C?7y]fnC&N!:)FC!Qa/.',
+                            { expiresIn: '24h' },
+                        )
+                    });
+                })
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 /*exports.signup = (req, res, next) => {
     console.log(req.body)

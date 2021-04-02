@@ -14,7 +14,7 @@
                 </div>            
             </form>
         </div>
-        <span id="forum"></span>
+        <span id="posts"></span>
     </div>
 </template>
 
@@ -51,23 +51,23 @@ export default {
             console.log(envoi);
             fetch("http://localhost:3000/api/forum/", envoi)
             .then(response => response.json())
-            .then(message => {
-                console.log ('envoi ' + message);
+            .then(messages => {
+                console.log ('envoi ' + messages);
                 })
             .catch(error => alert("Erreur : " + error));
             } else{
                 alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
-        }
-        /*fetch('http://localhost:3000/api/forum')
+        },
+        /*fetch("http://localhost:3000/api/forum/")
         .then(response => response.json())
         .then(posts => {
-            main = document.getElementById('app');
+            fil = document.getElementById('posts');
             if(posts === ""){
                 null = document.createElement('h2');
                 null.className = 'null row';
                 null.textContent = 'Aucun post'
-                main.append(null);
+                fil.append(null);
             }else{
                 for(let i=0; i<posts.length; i++){
                 
@@ -92,7 +92,7 @@ export default {
 
                     newComment = document.createElement('div');
                     newComment.className = 'comment row';
-                    main.append(newComment);
+                    fil.append(newComment);
 
                     newCommentPseudo = document.createElement('p');
                     newCommentPseudo.className = 'commentPseudo col-4 text-white';

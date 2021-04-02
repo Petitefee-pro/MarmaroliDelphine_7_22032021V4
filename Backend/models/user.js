@@ -25,8 +25,8 @@ User.updateById = (identifiant, user, result) => {
     });
 };
 
-User.findById = (identifiant, result) => {
-    sql.query(`SELECT * FROM users WHERE identifiant = identifiant`, (err, res) => {
+User.findOne = (email, result) => {
+    sql.query(`SELECT * FROM users WHERE email = email`, (err, res) => {
         if (err) {
             console.log('error: ', err);
             result(err, null);
