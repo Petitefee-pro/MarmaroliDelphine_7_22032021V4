@@ -7,39 +7,43 @@ const User = function(user){
     this.password = user.password
 };
 
-User.updateById = (req, res) => {
-    console.log(identifiant,user)
+User.updateById = (user) => {
+    console.log(user)
     sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ?`, 
-    req.body.pseudo, req.body.email, req.body.password, req.body.identifiant,
+    [user.pseudo, user.email, user.password, user.identifiant],
     (err, res) => {
         if (err){
-            console.log("error: ", err);
-            result(err, null);
-            return;
+            console.log("error: ", err);            
+            return(err, null);
         }
-        if(res.affectedRows == 0){
-            result({ kind: 'Utilisateur non trouvé !' }, null);
-            return;
+        if(res.affectedRows == 0){         
+            console.log('Utilisateur non trouvé !')
+            return({ kind: 'Utilisateur non trouvé !' }, null);            
+        } else{
+            console.log('création profil : ', { identifiant: user.identifiant, ...user })
+            return(res.status(200).json({ email: "ok" }), null);
         }
-        console.log('création profil : ', { id: identifiant, ...User })
-        result(null, { identifiant: identifiant, ...user});
     });
 };
 
 User.findOne = (req, res) => {
-    sql.query(`SELECT * FROM users WHERE email = email`, (err, res) => {
+    sql.query(`SELECT * FROM users WHERE email = ?`, req.body.email, function(error, _result, _fields){
+        if (error){
+            console.log(('échec'));
+            return res.status(401).json({ error })            
+        }
+    }) 
+    {
         if (err) {
             console.log('error: ', err);
-            result(err, null);
-            return;
+            return(err, null);
         }
         if (res.length) {
             console.log('Utilisateur trouvé: ', res[0]);
-            result(null, res[0]);
-            return;
+            return(null, res[0]);
         }
-        result({ kind: 'Utilisateur non trouvé !' }, null);
-    });
+        return({ kind: 'Utilisateur non trouvé !' }, null);
+    };
 };
 
 module.exports = User;

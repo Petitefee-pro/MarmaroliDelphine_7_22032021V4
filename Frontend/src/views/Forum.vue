@@ -18,7 +18,7 @@
                 </div>            
             </form>
         </div>
-        <span id="posts"></span>
+        <button id="posts" @click="fetchDatas">Click</button>
     </div>
 </template>
 
@@ -28,11 +28,10 @@ export default {
     data(){
         return {
             pseudo:'',
-            post: ''
+            tableauPost: [],
         }
     },
-    methods:{
-        
+    methods:{        
         submitFormForum: function (){
             let pseudo = this.pseudo;
             let post = this.post;
@@ -64,59 +63,62 @@ export default {
                 alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
         },
+        fetchDatas() {
         fetch("http://localhost:3000/api/forum/")
         .then(response => response.json())
         .then(posts => {
-            fil = document.getElementById('posts');
+            this.tableauPost = posts;
+            let fil = document.getElementById('posts');
             if(posts === ""){
-                null = document.createElement('h2');
-                null.className = 'null row';
-                null.textContent = 'Aucun post'
-                fil.append(null);
+                let noPost = document.createElement('h2');
+                noPost.className = 'null row';
+                noPost.textContent = 'Aucun post'
+                fil.append(noPost);
             }else{
                 for(let i=0; i<posts.length; i++){
                 
-                    newPost = document.createElement('div');
+                    let newPost = document.createElement('div');
                     newPost.className = 'post row';
-                    main.append(newPost);
+                    fil.append(newPost);
 
-                    newPostPseudo = document.createElement('p');
+                    let newPostPseudo = document.createElement('p');
                     newPostPseudo.className = 'postPseudo col-4 text-white';
                     newPostPseudo.textContent = posts[i].pseudonyme;
                     newPost.append(newPostPseudo);
 
-                    newPostDate = document.createElement('p');
+                    let newPostDate = document.createElement('p');
                     newPostDate.className = 'postDate col-4 text-white';
                     newPostDate.textContent = posts[i].contenuDate;
                     newPost.append(newPostDate);
 
-                    newPostImage = document.createElement('img');
+                    let newPostImage = document.createElement('img');
                     newPostImage.className = 'postImage img-thumbnail border-0 max-auto d-block img-fluid h-75'
                     newPostImage.textContent = posts[i].contenuImage;
                     newPost.append(newPostImage);
 
-                    newComment = document.createElement('div');
+                    let newComment = document.createElement('div');
                     newComment.className = 'comment row';
                     fil.append(newComment);
 
-                    newCommentPseudo = document.createElement('p');
+                    let newCommentPseudo = document.createElement('p');
                     newCommentPseudo.className = 'commentPseudo col-4 text-white';
                     newCommentPseudo.textContent = posts[i].pseudonyme;
                     newComment.append(newCommentPseudo);
 
-                    newCommentDate = document.createElement('p');
+                    let newCommentDate = document.createElement('p');
                     newCommentDate.className = 'commentDate col-4 text-white';
                     newCommentDate.textContent = posts[i].commentaireDate;
                     newComment.append(newCommentDate);
 
-                    newCommentContenu = document.createElement('p');
+                    let newCommentContenu = document.createElement('p');
                     newCommentContenu.className = 'commentContenu col-10 text-white';
                     newCommentContenu.textContent = posts[i].commentaire;
                     newComment.append(newCommentContenu);
                 }
-            }            
+            }          
         })
         .catch(error => alert("Erreur : " + error))
+        }
     }
 }
 </script>

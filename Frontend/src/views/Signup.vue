@@ -83,13 +83,20 @@ export default ({
                 console.log(JSON.stringify(profil));
                 fetch("http://localhost:3000/api/user/signup", envoi)
                 .then(response => response.json())
-                .then(profil => {
-                    this.$router.push({ name: 'Forum' })
-                    console.log ('envoi ' + profil);
+                .then((retour) => {  
+                    if (retour === "ok"){
+                        console.log('forum')
+                        this.$router.push({ path: "/forum" })      
+                        /*console.log(profil);*/
+                    }else{ 
+                        alert('non connu')
+                        console.log('inconnu');
+                        console.log(retour);
+                    }                  
                 })
                 .catch(error => alert("Erreur : " + error));
             } else{
-                alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
+                alert("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
         }
         
