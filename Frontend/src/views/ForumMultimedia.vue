@@ -9,12 +9,16 @@
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
+                <div class="form-group col-10 col-md-10 m-0 p-0">
+                        <label for="image"></label>
+                        <input class="" type="file" id="image" name="image" accept=".jpg, .jpeg, .png" multiple>                             
+                </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
                     <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
                 </div>            
             </form>
         </div>
-        <span id="posts" v-show="fetchDatas"></span>
+        <button id="posts" @click="fetchDatas">Click</button>
     </div>
 </template>
 
@@ -24,7 +28,7 @@ export default {
     data(){
         return {
             pseudo:'',
-            posts: [],
+            tableauPost: [],
         }
     },
     methods:{        
@@ -63,10 +67,9 @@ export default {
         fetch("http://localhost:3000/api/forum/")
         .then(response => response.json())
         .then(posts => {
-            console.log(posts);
             this.tableauPost = posts;
             let fil = document.getElementById('posts');
-            if(posts === []){
+            if(posts === ""){
                 let noPost = document.createElement('h2');
                 noPost.className = 'null row';
                 noPost.textContent = 'Aucun post'

@@ -59,9 +59,14 @@ export default ({
                 console.log(envoi);
                 fetch("http://localhost:3000/api/user/login", envoi)
                 .then(response => response.json())
-                .then((login) => {
-                    this.$router.push({ name: 'Forum' })
-                    console.log('envoi ' + login);                    
+                .then((retour) => {
+                    if (retour.password === "ok"){
+                        this.$router.push({ path: "/forum" })      
+                    }else{ 
+                        alert('non connu')
+                        console.log('inconnu');
+                        console.log(retour);
+                    }                         
                 })
                 .catch(error => alert("Erreur : " + error));
             }

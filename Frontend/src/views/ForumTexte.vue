@@ -14,7 +14,7 @@
                 </div>            
             </form>
         </div>
-        <span id="posts" v-show="fetchDatas"></span>
+        <button id="posts" @click="fetchDatas">Click</button>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     data(){
         return {
             pseudo:'',
-            posts: [],
+            tableauPost: [],
         }
     },
     methods:{        
@@ -63,10 +63,9 @@ export default {
         fetch("http://localhost:3000/api/forum/")
         .then(response => response.json())
         .then(posts => {
-            console.log(posts);
             this.tableauPost = posts;
             let fil = document.getElementById('posts');
-            if(posts === []){
+            if(posts === ""){
                 let noPost = document.createElement('h2');
                 noPost.className = 'null row';
                 noPost.textContent = 'Aucun post'

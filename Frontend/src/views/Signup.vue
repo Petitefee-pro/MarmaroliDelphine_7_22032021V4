@@ -67,7 +67,6 @@ export default ({
                     email: email,
                     password: password
                 };
-                console.log(profil);
 
                 //Envoi du formulaire d'inscription
                 const envoi = {
@@ -79,15 +78,11 @@ export default ({
                     mode: 'cors',
                     cache: 'default'
                 };
-                console.log(envoi);
-                console.log(JSON.stringify(profil));
                 fetch("http://localhost:3000/api/user/signup", envoi)
                 .then(response => response.json())
                 .then((retour) => {  
-                    if (retour === "ok"){
-                        console.log('forum')
+                    if (retour.email === "ok"){
                         this.$router.push({ path: "/forum" })      
-                        /*console.log(profil);*/
                     }else{ 
                         alert('non connu')
                         console.log('inconnu');

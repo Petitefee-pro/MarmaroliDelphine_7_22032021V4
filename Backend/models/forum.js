@@ -1,11 +1,11 @@
 const sql = require('../models/db');
 
-const Forum = function(forum, /*user*/){
+const Forum = function(forum, user){
     this.idForum = forum.idForum,
     this.contenuText = forum.contenuText,
     this.contenuImage= forum.contenuImage,
     this.contenuDate = forum.contenuDate
-    /*this.pseudo = user.pseudo*/
+    this.pseudo = user.pseudo
 };
 
 Forum.create = (newForum, result) => {

@@ -11,8 +11,8 @@ exports.signup = (req, res, next) => {
             console.log(('échec'));
             return res.status(401).json({ error })            
         }
-    }))
-    {bcrypt.hash(req.body.password, 10)
+    })){
+        bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
                 identifiant: req.body.identifiant,
@@ -32,31 +32,33 @@ exports.signup = (req, res, next) => {
 //Connection au profil utilisateur
 exports.login = (req, res, next) => {
     console.log(req.body);
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password
-    });
-    console.log(user);
-    if(sql.query(`SELECT * FROM users WHERE email = ${req.body.email}`, function(error, _result, _fields){
+    if(sql.query(`SELECT * FROM users WHERE email = ?`, req.body.email, function(error, _result, _fields){
         if (error){
-            console.log(('échec'));
+            console.log(('échec !'));
             return res.status(401).json({ error })            
         }
-    }))
-    {bcrypt.compare(user.password, this.password)
+    })){
+        const user = new User({
+            email: req.body.email,
+            password: req.body.password
+        });
+        console.log (user);
+        bcrypt.compare(user.password, this.password)
         .then(valid => {
             if (!valid) {
                 return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
-            res.status(200).json({
+            console.log(user);
+            return res.status(200).json({
                 idUser: user.id,
                 token: jwt.sign(
                     { idUser: user.id },
                     '!UL+Z]wnKk-?v=Y8u5w.}M),D:m]}bqx+t724GQ[k@FR:m#])KvPS!?3vEb6JVSDTk/Yb+gu!-?hxB7cy%kHuy:_QqG+NF8FRv[QzuVE7$/?N;dBSthJ-z{B$hk?=SXmu!=6auH=dY[[{muwAec2N@FJERA:T8za)QF+@)e92Y)/X9f-FZ7Wx4yQyR5V[y%TPJD2.UedkG?7XZW}Qh.ruT.Z)f3Bc=jUETuvn_!HAM:E.TVWB#B4C9*g?7Q*:*Dg(f/V4Yq]puLBFN=&7/TcANT#C?7y]fnC&N!:)FC!Qa/.',
                     { expiresIn: '24h' },
-                )
-            });
-            console.log(user);
+                ),
+                email: "ok" 
+
+            });          
         })
         .catch(error => res.status(500).json({ error }));
     }else{

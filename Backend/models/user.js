@@ -17,11 +17,11 @@ User.updateById = (user) => {
             return(err, null);
         }
         if(res.affectedRows == 0){         
-            console.log('Utilisateur non trouvé !')
+            console.log('Utilisateurs non trouvé !')
             return({ kind: 'Utilisateur non trouvé !' }, null);            
         } else{
             console.log('création profil : ', { identifiant: user.identifiant, ...user })
-            return(res.status(200).json({ email: "ok" }), null);
+            return({ identifiant: user.identifiant, ...user}, null);
         }
     });
 };
