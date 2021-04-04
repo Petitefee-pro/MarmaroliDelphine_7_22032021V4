@@ -2,14 +2,14 @@
   <div id="app" class="container-fluid">
     <nav>
       <ul class="nav justify-content-end nav-fill">
-        <li class="nav-item ">
-          <router-link class="nav-link text-white weight-bold" to="/">Accueil</router-link>
-        </li>
         <li class="nav-item">
           <router-link class="nav-link text-white" to="/signup">S'incrire</router-link>
         </li>
         <li class="nav-item">
         <router-link class="nav-link text-white" to="/login">Se connecter</router-link> 
+        </li>
+        <li class="nav-item">
+        <router-link class="nav-link text-white" to="/">Se déconnecter</router-link> 
         </li>
       </ul>  
     </nav>      

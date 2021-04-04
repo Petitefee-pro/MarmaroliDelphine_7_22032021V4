@@ -1,6 +1,20 @@
 <template>
    <div class="form-row rounded bg-transparent shadow flex-column justify-content-center m-0 pb-0">  
-       <h1 class="text-center text-white">Forum</h1>
+        <ul class="nav  nav-fill">
+            <li class="nav-item bg-secondary mb-4">
+                <router-link class="nav-link text-white font-weight-bold" to="/forum">
+                    <i class="fas fa-angle-left"></i>
+                </router-link>
+            </li>   
+            <li class="nav-item bg-secondary mb-4">
+                <router-link class="nav-link text-white font-weight-bold" to="/forum-texte">FORUM TEXTE</router-link>
+            </li>
+            <li class="nav-item bg-secondary mb-4">
+                <router-link class="nav-link text-white font-weight-bold" to="/forum-multimedia">FORUM MULTIMEDIA</router-link> 
+            </li>
+        </ul>  
+        <view-routeur></view-routeur>
+        <h1 class="text-center text-white">Forum Texte</h1>
         <div>
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
                 <div class="form-group col-10 col-md-10 m-0 p-0">
@@ -14,17 +28,32 @@
                 </div>            
             </form>
         </div>
-        <button id="posts" @click="fetchDatas">Click</button>
+        <div>
+            <section v-if="errored">
+                <p>Nous sommes désolés, nous ne sommes pas en mesure de récupérer ces informations pour le moment. Veuillez réessayer ultérieurement.</p>
+            </section>
+            <section v-else>
+                <div v-if="loading">Chargement...</div>
+                <div v-else v-for-key="forums" class="forums">
+                    {{ forum.description }}
+
+                </div>
+            </section>
+        </div>    
+        
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'forum',
     data(){
         return {
             pseudo:'',
-            tableauPost: [],
+            info: null,
+            loading: true,
+            errored: false            
         }
     },
     methods:{        
@@ -59,62 +88,18 @@ export default {
                 alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
         },
-        fetchDatas() {
-        fetch("http://localhost:3000/api/forum/")
-        .then(response => response.json())
-        .then(posts => {
-            this.tableauPost = posts;
-            let fil = document.getElementById('posts');
-            if(posts === ""){
-                let noPost = document.createElement('h2');
-                noPost.className = 'null row';
-                noPost.textContent = 'Aucun post'
-                fil.append(noPost);
-            }else{
-                for(let i=0; i<posts.length; i++){
-                
-                    let newPost = document.createElement('div');
-                    newPost.className = 'post row';
-                    fil.append(newPost);
-
-                    let newPostPseudo = document.createElement('p');
-                    newPostPseudo.className = 'postPseudo col-4 text-white';
-                    newPostPseudo.textContent = posts[i].pseudonyme;
-                    newPost.append(newPostPseudo);
-
-                    let newPostDate = document.createElement('p');
-                    newPostDate.className = 'postDate col-4 text-white';
-                    newPostDate.textContent = posts[i].contenuDate;
-                    newPost.append(newPostDate);
-
-                    let newPostImage = document.createElement('img');
-                    newPostImage.className = 'postImage img-thumbnail border-0 max-auto d-block img-fluid h-75'
-                    newPostImage.textContent = posts[i].contenuImage;
-                    newPost.append(newPostImage);
-
-                    let newComment = document.createElement('div');
-                    newComment.className = 'comment row';
-                    fil.append(newComment);
-
-                    let newCommentPseudo = document.createElement('p');
-                    newCommentPseudo.className = 'commentPseudo col-4 text-white';
-                    newCommentPseudo.textContent = posts[i].pseudonyme;
-                    newComment.append(newCommentPseudo);
-
-                    let newCommentDate = document.createElement('p');
-                    newCommentDate.className = 'commentDate col-4 text-white';
-                    newCommentDate.textContent = posts[i].commentaireDate;
-                    newComment.append(newCommentDate);
-
-                    let newCommentContenu = document.createElement('p');
-                    newCommentContenu.className = 'commentContenu col-10 text-white';
-                    newCommentContenu.textContent = posts[i].commentaire;
-                    newComment.append(newCommentContenu);
-                }
-            }          
-        })
-        .catch(error => alert("Erreur : " + error))
-        }
+        getPosts(){
+            axios
+                .get ("http://localhost:3000/api/forum/")
+                .then( response => {
+                    this.info = response.data.forum
+                })                
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loaging = false)
+        }        
     }
 }
 </script>

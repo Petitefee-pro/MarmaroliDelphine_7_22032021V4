@@ -30,20 +30,65 @@ exports.signup = (req, res, next) => {
     }
 };
 //Connection au profil utilisateur
-exports.login = (req, res, next) => {
+exports.login = async function(req, res, next){
+    const email = req.body.login.email;
+    const password = req.body.login.password;
     console.log(req.body);
-    if(sql.query(`SELECT * FROM users WHERE email = ?`, req.body.email, function(error, _result, _fields){
-        if (error){
-            console.log(('échec !'));
-            return res.status(401).json({ error })            
-        }
-    })){
-        const user = new User({
-            email: req.body.email,
-            password: req.body.password
+    console.log(email);
+    console.log(password);
+    if (email && password){
+        sql.query(`SELECT * FROM users WHERE email = ?`,email , function(error, results, fields) {
+            if (!results || !(bcrypt.compare(password, results[0].password) )) {
+				/*req.session.loggin = true;
+				req.session.email = email;
+                req.session.password = password;*/             
+                        
+                res.status(401).json({ 
+                    message: 'Mot de passe incorrect !'                         
+                })                                                         
+            } else {
+                const idUser = results[0].idUser;
+                console.log(idUser);
+                res.status(200).json({
+                    token: jwt.sign(              
+                    {idUser : idUser},                  
+                    '!UL+Z]wnKk-?v=Y8u5w.}M),D:m]}bqx+t724GQ[k@FR:m#])KvPS!?3vEb6JVSDTk/Yb+gu!-?hxB7cy%kHuy:_QqG+NF8FRv[QzuVE7$/?N;dBSthJ-z{B$hk?=SXmu!=6auH=dY[[{muwAec2N@FJERA:T8za)QF+@)e92Y)/X9f-FZ7Wx4yQyR5V[y%TPJD2.UedkG?7XZW}Qh.ruT.Z)f3Bc=jUETuvn_!HAM:E.TVWB#B4C9*g?7Q*:*Dg(f/V4Yq]puLBFN=&7/TcANT#C?7y]fnC&N!:)FC!Qa/.',
+                    { expiresIn: '24h' },
+                    )
+               })
+            }   
+                        
+            
         });
-        console.log (user);
-        bcrypt.compare(user.password, this.password)
+    } else {
+        res.send('Merci de rentrer un email et un mot de passe correctes !');
+		res.end();
+    }
+    /*const User = function(user){
+        this.email = req.body.email,
+        this.password = req.body.password
+    };
+    console.log(this.email);
+    console.log(req.body);
+    const requete = `SELECT * FROM users WHERE email = ?`;
+    if(sql.query(requete, [email, password],  function select(error, results, fields){
+        if (error) {
+            console.log(error);   
+            sql.end();
+            return;
+    }
+    if (results.length > 0) {
+        const firstResult = results[ 0 ];
+        console.log('id: ' + firstResult['idUser']);
+        console.log('email: ' + firstResult['email']);
+        console.log('password: ' + firstResult['password']);
+    } else {
+        console.log("Pas de données");
+    }
+    sql.end();
+    }
+    );/*){
+        bcrypt.compare(req.body.password, firstResult['password'])
         .then(valid => {
             if (!valid) {
                 return res.status(401).json({ error: 'Mot de passe incorrect !' });
@@ -57,13 +102,12 @@ exports.login = (req, res, next) => {
                     { expiresIn: '24h' },
                 ),
                 email: "ok" 
-
             });          
         })
         .catch(error => res.status(500).json({ error }));
     }else{
         return res.status(401).json({ error : 'Utilisateur non trouvé !' })        
-    }
+    }*/
 }
       /*console.log(req.body)
     User.findOne({ email: req.body.email })

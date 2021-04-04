@@ -1,8 +1,6 @@
-import { createRouter, createWebHashHistory,  } from "vue-router";
+import { createRouter, createWebHistory,  } from "vue-router";
 import Accueil from '@/views/Accueil.vue';
 
-
-const routerHistory = createWebHashHistory();
  
 const routes = [
     {
@@ -41,6 +39,16 @@ const routes = [
         component: () => import(/*weppackChunkName: "forum"*/ '@/views/Forum.vue')
     },
     {
+        path: "/forum-texte",
+        name: "ForumTexte",
+        component: () => import(/*weppackChunkName: "forumTexte"*/ '@/views/ForumTexte.vue')
+    },
+    {
+        path: "/forum-multimedia",
+        name: "ForumMultimedia",
+        component: () => import(/*weppackChunkName: "forumMultimedia"*/ '@/views/ForumMultimedia.vue')
+    },
+    {
         path: "/commentaire",
         name: "Commentaire",
         component: () => import(/*weppackChunkName: "commentaire"*/ '@/views/Commentaire.vue')
@@ -49,8 +57,8 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: routerHistory,
+    history: createWebHistory(process.env.BASE_URL),
     routes
-});
+})
 
 export default router;
