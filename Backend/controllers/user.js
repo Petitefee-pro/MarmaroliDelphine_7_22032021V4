@@ -64,6 +64,17 @@ exports.login = async function(req, res, next){
         res.send('Merci de rentrer un email et un mot de passe correctes !');
 		res.end();
     }
+};
+
+//Suppression d'un profil utilisateur
+exports.deleteForum = (req, res) => {
+    User.deleteUser(req.params.idUser, (err, forum) => {
+      if(err)
+      res.send(err);
+      res.json({ success: true, message: 'Profil utilisateur supprimé avec succès' });
+    })
+};
+
     /*const User = function(user){
         this.email = req.body.email,
         this.password = req.body.password
@@ -108,7 +119,6 @@ exports.login = async function(req, res, next){
     }else{
         return res.status(401).json({ error : 'Utilisateur non trouvé !' })        
     }*/
-}
       /*console.log(req.body)
     User.findOne({ email: req.body.email })
         console.log (email)

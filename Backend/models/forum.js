@@ -1,14 +1,60 @@
 const sql = require('../models/db');
 
-const Forum = function(forum, user){
-    this.idForum = forum.idForum,
-    this.contenuText = forum.contenuText,
-    this.contenuImage= forum.contenuImage,
-    this.contenuDate = forum.contenuDate
-    this.pseudo = user.pseudo
+const Forum = function (forum) {
+    this.contenuText = forum.post 
 };
 
-Forum.create = (newForum, result) => {
+//Route post Forum
+Forum.createForum = (forumReqData, result) => {  
+  sql.query(`INSERT TO forums SET contenuText = ?`, forumReqData, (err, res) => {
+    if (err) {
+      console.log("Erreur lors de l'insertion du forum");
+      result(null, err);
+    } else{
+      console.log("Forum créé avec succès");
+      result(null, res);
+    }
+  })
+};
+
+//Route delete Forum
+Forum.deleteForum =(idForum, result) => {
+  sql.query(`DELETE FROM forums WHERE idForum=?`,[idForum], (err, res) => {
+    if(err){
+      console.log('Erreur lors de la suppression du forum');
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  })
+};
+
+//Route get AllForums
+Forum.getAllForums = (result) => {
+  sql.query(`SELECT * FROM forums`, (err, res) => {
+      if (err) {
+        console.log("Erreur lors de la récupération des forums ", err);
+        result(null, err);
+      } else{    
+      console.log("Forums récupérés avec succès", res);
+      result(null, res);
+      }
+    });
+};
+
+//route get OneForum par id
+Forum.getOneForum = (idForum, result) => {
+  sql.query(`SELECT * FROM forums WHERE idForum=?`, idForum, (err, res) => {
+    if (err) {
+      console.log("Erreur lors de la récupération du forum par l'id ", err);
+      result(null, err);
+    } else{    
+      result(null, res);
+    }
+  })
+};
+
+/*Forum.create = (post, result) => {
     sql.query(`INSERT INTO forums SET ?`, newForum, (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -22,7 +68,7 @@ Forum.create = (newForum, result) => {
 
 Forum.updateById = (id, forum, result) => {
     sql.query(`UPDATE forums SET contenuText = ?, contenuImage = ?, contenuDate = ?, pseudo = ? WHERE id = ?`,
-      [forum.contenuText, forum.contenuImage, forum.contenuDate, /*user.pseudo*/ , id],
+      [forum.contenuText, forum.contenuImage, forum.contenuDate, user.pseudo , id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -61,16 +107,15 @@ Forum.remove = (id, result) => {
     });
 };
 
-Forum.getAll = result => {
+Forum.getAll = (result) => {
     sql.query(`SELECT * FROM forums`, (err, res) => {
         if (err) {
-          console.log("error: ", err);
+          console.log("Erreur lors de la récupération des forums ", err);
           result(null, err);
-          return;
-        }
-    
-        console.log("forum: ", res);
+        } else{    
+        console.log("Forums récupérés avec succès", res);
         result(null, res);
+        }
       });
 };
 
@@ -92,5 +137,5 @@ Forum.findById = (forumId, result) => {
     result({ kind: "non trouvé" }, null);
   });
 };
-
+*/
 module.exports = Forum;

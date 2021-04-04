@@ -73,19 +73,17 @@ export default {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify( message ),
+                    body: JSON.stringify({ message }),
                     mode: 'cors',
                     cache: 'default'
                 }
             console.log(envoi);
-            fetch("http://localhost:3000/api/forum/", envoi)
-            .then(response => response.json())
-            .then(messages => {
-                console.log ('envoi ' + messages);
-                })
+            fetch("http://localhost:3000/api/forum", envoi)
+            .then(response => {
+                console.log(response);
+                /*location.replace('http://localhost:8080/forum-texte')*/
+            })            
             .catch(error => alert("Erreur : " + error));
-            } else{
-                alert ("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")
             }
         },
         getPosts(){

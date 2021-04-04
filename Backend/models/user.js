@@ -7,6 +7,7 @@ const User = function(user){
     this.password = user.password
 };
 
+//Route post signup
 User.updateById = (user) => {
     console.log(user)
     sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ?`, 
@@ -26,6 +27,7 @@ User.updateById = (user) => {
     });
 };
 
+//Route post login
 User.findOne = (req, res) => {
     sql.query(`SELECT * FROM users WHERE email = ?`, req.body.email, function(error, _result, _fields){
         if (error){
@@ -44,6 +46,18 @@ User.findOne = (req, res) => {
         }
         return({ kind: 'Utilisateur non trouvé !' }, null);
     };
+};
+
+//Route delete User
+User.deleteUser =(idUser, result) => {
+    sql.query(`DELETE FROM users WHERE idUser=?`,[idUser], (err, res) => {
+      if(err){
+        console.log('Erreur lors de la suppression du profil utilisateur');
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    })
 };
 
 module.exports = User;
