@@ -10,7 +10,7 @@ const User = function(user){
 //Route post signup
 User.updateById = (user) => {
     console.log(user)
-    sql.query(`UPDATE users SET pseudonyme = ?, email = ?, password = ? WHERE identifiant = ?`, 
+    sql.query(`UPDATE users SET pseudo = ?, email = ?, password = ? WHERE identifiant = ?`, 
     [user.pseudo, user.email, user.password, user.identifiant],
     (err, res) => {
         if (err){
@@ -29,7 +29,7 @@ User.updateById = (user) => {
 
 //Route post login
 User.findOne = (req, res) => {
-    sql.query(`SELECT * FROM users WHERE email = ?`, req.body.email, function(error, _result, _fields){
+    sql.query(`SELECT * FROM users WHERE pseudo = ?`, req.body.pseudo, function(error, _result, _fields){
         if (error){
             console.log(('échec'));
             return res.status(401).json({ error })            

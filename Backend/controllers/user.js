@@ -31,16 +31,16 @@ exports.signup = (req, res, next) => {
 };
 //Connection au profil utilisateur
 exports.login = async function(req, res, next){
-    const email = req.body.login.email;
+    const pseudo = req.body.login.pseudo;
     const password = req.body.login.password;
     console.log(req.body);
-    console.log(email);
+    console.log(pseudo);
     console.log(password);
-    if (email && password){
-        sql.query(`SELECT * FROM users WHERE email = ?`,email , function(error, results, fields) {
+    if (pseudo && password){
+        sql.query(`SELECT * FROM users WHERE pseudo = ?`,pseudo , function(error, results, fields) {
             if (!results || !(bcrypt.compare(password, results[0].password) )) {
 				/*req.session.loggin = true;
-				req.session.email = email;
+				req.session.pseudo = pseudo;
                 req.session.password = password;*/             
                         
                 res.status(401).json({ 
@@ -48,7 +48,7 @@ exports.login = async function(req, res, next){
                 })                                                         
             } else {
                 const idUser = results[0].idUser;
-                console.log(idUser);
+                console.log('ok' + idUser);
                 res.status(200).json({
                     token: jwt.sign(              
                     {idUser : idUser},                  
@@ -56,9 +56,8 @@ exports.login = async function(req, res, next){
                     { expiresIn: '24h' },
                     )
                })
-            }   
-                        
-            
+               console.log(idUser);
+            }       
         });
     } else {
         res.send('Merci de rentrer un email et un mot de passe correctes !');
@@ -67,7 +66,7 @@ exports.login = async function(req, res, next){
 };
 
 //Suppression d'un profil utilisateur
-exports.deleteForum = (req, res) => {
+exports.deleteUser = (req, res) => {
     User.deleteUser(req.params.idUser, (err, forum) => {
       if(err)
       res.send(err);

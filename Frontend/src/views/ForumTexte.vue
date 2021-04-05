@@ -1,29 +1,29 @@
 <template>
-   <div class="form-row rounded bg-transparent shadow flex-column justify-content-center m-0 pb-0">  
-        <ul class="nav  nav-fill">
-            <li class="nav-item bg-secondary mb-4">
-                <router-link class="nav-link text-white font-weight-bold" to="/forum">
+   <div class="form-row flex-column justify-content-center m-0 p-0">  
+        <ul class="nav nav-fill">
+            <li class="nav-item h-50 bg-secondary">
+                <router-link class="nav-link pl-4 p-1 col-1 text-white font-weight-bold" to="/forum">
                     <i class="fas fa-angle-left"></i>
                 </router-link>
             </li>   
-            <li class="nav-item bg-secondary mb-4">
-                <router-link class="nav-link text-white font-weight-bold" to="/forum-texte">FORUM TEXTE</router-link>
+            <li class="nav-item h-50 bg-secondary">
+                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-texte">Forum texte</router-link>
             </li>
-            <li class="nav-item bg-secondary mb-4">
-                <router-link class="nav-link text-white font-weight-bold" to="/forum-multimedia">FORUM MULTIMEDIA</router-link> 
+            <li class="nav-item h-50 bg-secondary">
+                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum Multimédia</router-link> 
             </li>
         </ul>  
         <view-routeur></view-routeur>
         <h1 class="text-center text-white">Forum Texte</h1>
-        <div>
+        <div class="border border-white rounded">
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
-                <div class="form-group col-10 col-md-10 m-0 p-0">
+                <div class="form-group col-11 col-md-10 m-0 p-1">
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
                     <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
-                <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
+                <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
                     <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
                 </div>            
             </form>

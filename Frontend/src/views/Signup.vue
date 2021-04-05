@@ -79,15 +79,9 @@ export default ({
                     cache: 'default'
                 };
                 fetch("http://localhost:3000/api/user/signup", envoi)
-                .then(response => response.json())
-                .then((retour) => {  
-                    if (retour.email === "ok"){
-                        this.$router.push({ path: "/forum" })      
-                    }else{ 
-                        alert('non connu')
-                        console.log('inconnu');
-                        console.log(retour);
-                    }                  
+                .then(response => {
+                    console.log(response);
+                    location.replace('http://localhost:8080/forum')
                 })
                 .catch(error => alert("Erreur : " + error));
             } else{

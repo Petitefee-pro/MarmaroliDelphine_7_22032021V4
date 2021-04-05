@@ -2,10 +2,10 @@
     <div class="login form-row rounded bg-transparent shadow justify-content-center">
         <form id="login" @submit="submitFormLogin" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
-                <label for="email"></label> 
-                <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" v-model="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                <label for="pseudo"></label> 
+                <input type="text" name="pseudo" id="pseudo" class="form-control form-control-lg" placeholder="Pseudonyme" v-model="pseudo" pattern="[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,10}" required>
                 <div class="valid-feedback">Valide</div>
-                <div class="invalid-feedback">Veuillez saisir votre email</div>
+                <div class="invalid-feedback">Veuillez saisir un pseudo</div>
             </div>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                  <label for="password"></label> 
@@ -29,21 +29,21 @@ export default ({
     name: 'login',
     data(){
         return {
-            email: '',
+            pseudo: '',
             password: ''
         }
     },
     methods:{
         submitFormLogin: function (){
-            let email = this.email;
+            let pseudo = this.pseudo;
             let password = this.password;
-            if((email === "") 
+            if((pseudo === "") 
                 && (password === "")
             ){
                 alert ("Veuillez s'il vous plaît, indiquer votre email et votre mot de passe valide ! ")
             } else{
                 let login = {
-                    email: email, 
+                    pseudo: pseudo, 
                     password: password
                 };
                 console.log(login);
@@ -60,6 +60,7 @@ export default ({
                 fetch("http://localhost:3000/api/user/login", envoi)
                 .then(response => {
                     console.log(response);
+                    localStorage.setItem('pseudo', JSON.stringify(pseudo));
                     location.replace('http://localhost:8080/forum')
                 })                                                                
                 .catch(error => alert("Erreur : " + error));

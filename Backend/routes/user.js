@@ -7,4 +7,6 @@ router.post('/signup', userCtrl.signup);
 
 router.post('/login', userCtrl.login);
 
+router.delete('/delete', userCtrl.deleteUser);
+
 module.exports = router;
