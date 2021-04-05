@@ -5,10 +5,10 @@ const forumCtrl = require('../controllers/forum');
 const auth = require('../middleware/auth');
 
 
-router.post('/', forumCtrl.createForum);
+router.post('/', auth, forumCtrl.createForum);
 /*router.put('/:id', auth, forumCtrl.modifyForum);*/
-router.delete('/:id', forumCtrl.deleteForum);
-router.get('/', forumCtrl.getAllForums);
-router.get('/:id', forumCtrl.getOneForum);
+router.delete('/:id', auth, forumCtrl.deleteForum);
+router.get('/', auth, forumCtrl.getAllForums);
+router.get('/:id', auth, forumCtrl.getOneForum);
 
 module.exports = router;

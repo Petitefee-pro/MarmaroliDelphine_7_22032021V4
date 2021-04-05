@@ -13,6 +13,13 @@ exports.deleteForum = (req, res) => {
 
 //Création d'un nouveau forum
 exports.createForum =(req, res) => {
+  /*const texte = req.body.message.post;
+  const pseudo = req.body.message.pseudo;
+  const post = new forumModel(texte, pseudo);
+  console.log(post);
+  console.log(pseudo);
+  console.log(texte);
+  post.insertPost();*/
   console.log(req.body.message);
   const forumReqData = (req.body.message.post);
   console.log(forumReqData);

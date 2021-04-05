@@ -9,7 +9,7 @@
         <router-link class="nav-link m-1 p-0 text-white" to="/login">Se connecter</router-link> 
         </li>
         <li class="nav-item">
-        <router-link class="nav-link m-1 p-0 text-white" to="/">Se déconnecter</router-link> 
+        <router-link class="nav-link m-1 p-0 text-white" to="/deconnect">Se déconnecter</router-link> 
         </li>
       </ul>  
     </nav>      

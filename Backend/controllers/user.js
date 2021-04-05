@@ -37,11 +37,11 @@ exports.login = async function(req, res, next){
     console.log(pseudo);
     console.log(password);
     if (pseudo && password){
-        sql.query(`SELECT * FROM users WHERE pseudo = ?`,pseudo , function(error, results, fields) {
+        sql.query(`SELECT * FROM users WHERE pseudo = ?`, pseudo , function(error, results, fields) {
             if (!results || !(bcrypt.compare(password, results[0].password) )) {
-				/*req.session.loggin = true;
+				req.session.loggin = true;
 				req.session.pseudo = pseudo;
-                req.session.password = password;*/             
+                req.session.password = password;           
                         
                 res.status(401).json({ 
                     message: 'Mot de passe incorrect !'                         
@@ -51,7 +51,8 @@ exports.login = async function(req, res, next){
                 console.log('ok' + idUser);
                 res.status(200).json({
                     token: jwt.sign(              
-                    {idUser : idUser},                  
+                    {idUser : idUser,
+                    /*idDroit : idDroit*/},                  
                     '!UL+Z]wnKk-?v=Y8u5w.}M),D:m]}bqx+t724GQ[k@FR:m#])KvPS!?3vEb6JVSDTk/Yb+gu!-?hxB7cy%kHuy:_QqG+NF8FRv[QzuVE7$/?N;dBSthJ-z{B$hk?=SXmu!=6auH=dY[[{muwAec2N@FJERA:T8za)QF+@)e92Y)/X9f-FZ7Wx4yQyR5V[y%TPJD2.UedkG?7XZW}Qh.ruT.Z)f3Bc=jUETuvn_!HAM:E.TVWB#B4C9*g?7Q*:*Dg(f/V4Yq]puLBFN=&7/TcANT#C?7y]fnC&N!:)FC!Qa/.',
                     { expiresIn: '24h' },
                     )

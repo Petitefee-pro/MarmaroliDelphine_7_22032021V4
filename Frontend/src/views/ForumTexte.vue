@@ -36,11 +36,14 @@
                 <div v-if="loading">Chargement...</div>
                 <div v-else v-for-key="forums" class="forums">
                     {{ forum.description }}
-
+                    
                 </div>
             </section>
-        </div>    
-        
+        </div>   
+        <div>
+            <button class="btn btn-primary btn-sm"><i class="far fa-comment-dots"></i></button>
+            <button class="btn btn-primary btn-sm"><i class="far fa-trash-alt"></i></button>
+        </div>        
     </div>
 </template>
 
@@ -58,7 +61,7 @@ export default {
     },
     methods:{        
         submitFormForum: function (){
-            let pseudo = this.pseudo;
+            let pseudo = localStorage.getItem('pseudo');
             let post = this.post;
             let regexPost = /[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
             if((regexPost.test(post) === true)

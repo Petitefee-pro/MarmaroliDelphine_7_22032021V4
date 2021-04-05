@@ -28,7 +28,7 @@ User.updateById = (user) => {
 };
 
 //Route post login
-User.findOne = (req, res) => {
+/*User.findOne = (req, res) => {
     sql.query(`SELECT * FROM users WHERE pseudo = ?`, req.body.pseudo, function(error, _result, _fields){
         if (error){
             console.log(('échec'));
@@ -46,7 +46,7 @@ User.findOne = (req, res) => {
         }
         return({ kind: 'Utilisateur non trouvé !' }, null);
     };
-};
+};*/
 
 //Route delete User
 User.deleteUser =(idUser, result) => {

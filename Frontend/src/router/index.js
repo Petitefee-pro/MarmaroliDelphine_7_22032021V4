@@ -19,6 +19,11 @@ const routes = [
         component: () => import(/*weppackChunkName: "login"*/ '@/views/Login.vue')
     },
     {
+        path: "/deconnect",
+        name: "Deconnect",
+        component: () => import(/*weppackChunkName: "deconnect"*/ '@/views/Deconnect.vue')
+    },
+    {
         path: "/confidential",
         name: "Confidential",
         component: () => import(/*weppackChunkName: "confidential"*/ '@/views/Confidential.vue')

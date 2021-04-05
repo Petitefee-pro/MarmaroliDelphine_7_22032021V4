@@ -78,11 +78,13 @@ export default ({
                     mode: 'cors',
                     cache: 'default'
                 };
+                console.log(envoi);
                 fetch("http://localhost:3000/api/user/signup", envoi)
                 .then(response => {
                     console.log(response);
+                    localStorage.setItem('pseudo', JSON.stringify(pseudo));
                     location.replace('http://localhost:8080/forum')
-                })
+                })  
                 .catch(error => alert("Erreur : " + error));
             } else{
                 alert("Veuillez vérifier vos informations, le formulaire d'inscription n'est pas valide.")

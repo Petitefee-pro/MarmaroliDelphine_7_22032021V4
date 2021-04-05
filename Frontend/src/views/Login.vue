@@ -61,8 +61,9 @@ export default ({
                 .then(response => {
                     console.log(response);
                     localStorage.setItem('pseudo', JSON.stringify(pseudo));
+                    /*localStorage.setItem('token', JSON.stringify(token));*/
                     location.replace('http://localhost:8080/forum')
-                })                                                                
+                })                                                               
                 .catch(error => alert("Erreur : " + error));
             }
         }

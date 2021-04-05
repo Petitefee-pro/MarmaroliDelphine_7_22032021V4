@@ -1,12 +1,22 @@
 const sql = require('../models/db');
 
 const Forum = function (forum) {
-    this.contenuText = forum.post 
+    this.contenuTexte = forum.post,
+    this.pseudo = forum.post
 };
+
+/*module.exports = class Forum{
+  constructor(texte){
+    this.contenuTexte = texte;
+  }
+  insertPost(){
+    return sql.query(`INSERT INTO forums (contenuTexte) VALUES (?)`, this.contenuTexte);
+  }
+}*/
 
 //Route post Forum
 Forum.createForum = (forumReqData, result) => {  
-  sql.query(`INSERT TO forums SET contenuText = ?`, forumReqData, (err, res) => {
+  sql.query(`INSERT INTO forums (contenuTexte, pseudo) VALUES (?, ?)`, forumReqData, (err, res) => {
     if (err) {
       console.log("Erreur lors de l'insertion du forum");
       result(null, err);
